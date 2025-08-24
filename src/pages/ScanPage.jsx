@@ -134,7 +134,7 @@ export default function ScanPage() {
     <>
       <Container
         fluid
-        className="min-vh-100 d-flex align-items-center justify-content-center page-container"
+        className="min-vh-90 d-flex align-items-center justify-content-center page-container"
       >
         <Card
           className="p-4 shadow-lg text-center"
