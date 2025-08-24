@@ -65,3 +65,7 @@ background-color: #FFC107 !important;
 .page-container {
   /* your background settings already here are fine */
 }
+
+.min-vh-90 {
+  min-height: 90vh;
+}
