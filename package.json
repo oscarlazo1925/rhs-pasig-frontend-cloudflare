@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://oscarlazo1925.github.io/rhs-pasig-frontend",
+  "homepage": "https://rizalhs.org/",
   "scripts": {
     "dev": "vite",
     "build": "vite build",

@@ -15,21 +15,21 @@ export default defineConfig({
         theme_color: '#c59400',
         background_color: '#e7cf86',
         display: 'standalone',
-        scope: '/rhs-pasig-frontend/',
-        start_url: '/rhs-pasig-frontend/',
+        scope: '/',
+        start_url: '/',
         icons: [
           {
-            src: '/rhs-pasig-frontend/rhslogo.png',
+            src: '/rhslogo.png',
             sizes: '192x192',
             type: 'image/png'
           },
           {
-            src: '/rhs-pasig-frontend/rhslogo.png',
+            src: '/rhslogo.png',
             sizes: '512x512',
             type: 'image/png'
           },
           {
-            src: '/rhs-pasig-frontend/rhslogo.png',
+            src: '/rhslogo.png',
             sizes: '512x512',
             type: 'image/png',
             purpose: 'any maskable'

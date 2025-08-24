@@ -22,7 +22,7 @@ registerSW({
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <BrowserRouter basename="/rhs-pasig-frontend">
+    <BrowserRouter basename="/">
       <App />
       <Toaster />
     </BrowserRouter>
