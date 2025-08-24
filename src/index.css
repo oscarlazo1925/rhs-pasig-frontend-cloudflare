@@ -1,0 +1,67 @@
+/* Only when navbar is collapsed (below lg) */
+@media (max-width: 991px) {
+  .navbar-float .navbar-collapse {
+    position: absolute;
+    top: 100%; /* below the navbar */
+    right: 0;
+    background: #e9ce7b; /* dark background */
+    width: 100%;
+    padding: 1rem;
+    z-index: 1050;
+    border-radius: 0 0 0.5rem 0.5rem;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+  }
+}
+
+body {
+  min-height: 100vh;
+  background-image: url("/rhslogo.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  position: relative;
+}
+
+body::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4); /* dark overlay */
+  backdrop-filter: blur(25px);      /* <-- blur effect */
+  z-index: 0;
+}
+
+.page-content {
+  position: relative;
+  z-index: 1; /* keep content above blur */
+  color: white; /* so text is readable */
+}
+
+.rizal-color{
+background-color: #FFC107 !important;
+}
+
+
+/* Invisible input: still focusable, doesn’t shift layout */
+.scan-hidden-input {
+  position: absolute;
+  top: -100px;  /* move it offscreen */
+  left: -100px;
+  opacity: 0;
+}
+
+
+/* Optional: image button styling (if you use the image) */
+.scan-tap-image {
+  width: 160px;
+  height: 160px;
+  object-fit: contain;
+  cursor: pointer;
+  user-select: none;
+}
+
+/* If you use the blurred background container from earlier */
+.page-container {
+  /* your background settings already here are fine */
+}
