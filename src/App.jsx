@@ -213,7 +213,17 @@ function App() {
             </ProtectedRoute>
           }
         />
-        <Route path="/scan" element={<ScanPage />} /> {/* 👈 new page */}
+
+         <Route
+          path="/scan"
+          element={
+            <ProtectedRoute user={user}>
+              <ScanPage user={user} />
+            </ProtectedRoute>
+          }
+        />
+
+        {/* <Route path="/scan" element={<ScanPage />} /> 👈 new page */}
 
       </Routes>
     </>
