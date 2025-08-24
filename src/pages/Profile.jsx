@@ -25,6 +25,7 @@ function Profile() {
           firstname: res.data.user.firstname || "",
           middlename: res.data.user.middlename || "",
           lastname: res.data.user.lastname || "",
+          batchYear: res.data.user.batchYear || "",
           photo: res.data.user.photo || "",
           qrCode: res.data.user.qrCode || "",
         });
@@ -75,7 +76,7 @@ function Profile() {
           </Form.Group>
 
           <Form.Group className="mb-3">
-            <Form.Label>Firstname</Form.Label>
+            <Form.Label>Firstname /Suffix</Form.Label>
             <Form.Control
               type="text"
               name="firstname"
@@ -108,6 +109,18 @@ function Profile() {
               required
             />
           </Form.Group>
+          <Form.Group className="mb-3">
+            <Form.Label>Batch Year</Form.Label>
+            <Form.Control
+              type="text"
+              name="batchYear"
+              value={formData.batchYear}
+              onChange={handleChange}
+              placeholder="Enter your batchYear"
+              required
+            />
+          </Form.Group>
+
           <Form.Group className="mb-3">
             <Form.Label>QR Code</Form.Label>
             <Form.Control
