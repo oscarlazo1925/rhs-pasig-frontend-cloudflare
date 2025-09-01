@@ -1,91 +1,27 @@
-import { Button, Container, Navbar, Card, Nav, Spinner } from "react-bootstrap";
-import { auth, provider } from "./firebase";
-import { signInWithPopup, signOut, onAuthStateChanged } from "firebase/auth";
+import { Container, Spinner } from "react-bootstrap";
+import { auth } from "./firebase";
+import { onAuthStateChanged } from "firebase/auth";
 import axiosInstance from "./axiosInstance";
 import { useState, useEffect } from "react";
-import { Routes, Route, Link, useNavigate } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import ProtectedRoute from "./ProtectedRoute";
 
 import Profile from "./pages/Profile";
 import NavbarTop from "./components/NavbarTop";
 import ScanPage from "./pages/ScanPage";
+import Dashboard from "./components/dashboard";
+import Home from "./pages/Home";
 
+import { useAuthActions } from "./hooks/useAuthActions"; // 👈 import custom hook
 
-function Home({ user, handleGoogleLogin, loginText }) {
-  console.log(loginText, "loginText");
-  return (
-    <Container
-      className="d-flex justify-content-center align-items-center"
-      style={{ minHeight: "90vh" }}
-    >
-      <Card className="p-4 shadow-lg" style={{ width: "400px" }}>
-        <h3 className="text-center mb-4">Welcome</h3>
-        {!user ? (
-          <div className="d-flex justify-content-center">
-            <Button
-              variant="danger"
-              onClick={handleGoogleLogin}
-              className="w-50"
-              disabled={loginText} // 🔹 disable while logging in
-            >
-              {loginText ? (
-                <>
-                  <Spinner
-                    as="span"
-                    animation="border"
-                    size="sm"
-                    role="status"
-                    aria-hidden="true"
-                  />{" "}
-                  Logging in...
-                </>
-              ) : (
-                "Sign in with Google"
-              )}
-            </Button>
-          </div>
-        ) : (
-          <div className="text-center">
-            <img
-              src={user.photo}
-              alt="avatar"
-              className="rounded-circle mb-3"
-              width="80"
-            />
-            <h5>{user.displayName}</h5>
-            <p className="text-muted">{user.email}</p>
-            <Button
-              as={Link}
-              to="/profile"
-              className="w-100 mt-3"
-              variant="secondary"
-            >
-              Check Profile
-            </Button>
-          </div>
-        )}
-      </Card>
-    </Container>
-  );
-}
-
-function Dashboard({ user, handleLogout }) {
-  return (
-    <Container className="mt-5 text-center">
-      <h2>Dashboard</h2>
-      <p>Welcome back, {user.displayName} 🎉</p>
-      <Button variant="secondary" onClick={handleLogout} className="mt-3">
-        Logout
-      </Button>
-    </Container>
-  );
-}
-
+//
 function App() {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
-  const navigate = useNavigate();
-  const [loginText, setLoginText] = useState(false);
+
+  const { handleGoogleLogin, handleLogout, loginText } =
+    useAuthActions(setUser);
+
   // 🔹 Load token from localStorage on startup
   useEffect(() => {
     const savedUser = localStorage.getItem("user");
@@ -100,10 +36,6 @@ function App() {
         const idToken = await firebaseUser.getIdToken();
 
         try {
-          // const res = await axios.post(
-          //   `${import.meta.env.VITE_API_URL}/auth/google`,
-          //   { token: idToken }
-          // );
           const res = await axiosInstance.post("/auth/google", {
             token: idToken,
           });
@@ -126,44 +58,6 @@ function App() {
 
     return () => unsubscribe();
   }, []);
-
-  const handleGoogleLogin = async () => {
-    setLoginText(true);
-    try {
-      const result = await signInWithPopup(auth, provider);
-      const idToken = await result.user.getIdToken();
-
-      // const res = await axios.post(
-      //   `${import.meta.env.VITE_API_URL}/auth/google`,
-      //   { token: idToken }
-      // );
-
-      const res = await axiosInstance.post("/auth/google", { token: idToken });
-      // console.log(res,'res')
-      // ✅ Save to localStorage
-      // localStorage.setItem("user", JSON.stringify(res.data.user));
-      localStorage.setItem("token", res.data.token);
-
-      setUser(res.data.user);
-    } catch (err) {
-      console.error("Google login failed:", err);
-    } finally {
-      setLoginText(false); // 🔹 re-enable button
-    }
-  };
-
-  const handleLogout = async () => {
-    setLoginText(false);
-    try {
-      await signOut(auth);
-      localStorage.removeItem("user");
-      localStorage.removeItem("token");
-      setUser(null);
-      navigate("/");
-    } catch (err) {
-      console.error("Logout failed:", err);
-    }
-  };
 
   if (loading) {
     return (
@@ -214,7 +108,7 @@ function App() {
           }
         />
 
-         <Route
+        <Route
           path="/scan"
           element={
             <ProtectedRoute user={user}>
@@ -224,7 +118,6 @@ function App() {
         />
 
         {/* <Route path="/scan" element={<ScanPage />} /> 👈 new page */}
-
       </Routes>
     </>
   );
