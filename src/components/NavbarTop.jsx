@@ -4,7 +4,7 @@ import { useState } from "react";
 
 function AppNavbar({ user, handleGoogleLogin, handleLogout, loginText }) {
   const [expanded, setExpanded] = useState(false);
-
+  // console.log(user.role, "user");
   return (
     <Navbar
       // bg="secondary"
@@ -44,14 +44,15 @@ function AppNavbar({ user, handleGoogleLogin, handleLogout, loginText }) {
                   Profile
                 </Link>
 
-                <Link
-                  to="/scan"
-                  className="nav-link"
-                  onClick={() => setExpanded(false)}
-                >
-                  Scan
-                </Link>
-
+            {user && user.role === "admin" && (
+  <Link
+    to="/scan"
+    className="nav-link"
+    onClick={() => setExpanded(false)}
+  >
+    Scan
+  </Link>
+)}
 
 
                 <Link
