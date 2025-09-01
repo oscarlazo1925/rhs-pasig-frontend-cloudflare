@@ -1,7 +1,7 @@
 import React from "react";
 import { Button, Container } from "react-bootstrap";
 
-export default function Dashboard({ user, handleLogout }) {
+export default function Dashb({ user, handleLogout }) {
   return (
     <Container className="mt-5 text-center" style={{ position:"relative", zIndex: 1}}>
       <h2>Dashboard</h2>

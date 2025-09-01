@@ -9,10 +9,12 @@ import ProtectedRoute from "./ProtectedRoute";
 import Profile from "./pages/Profile";
 import NavbarTop from "./components/NavbarTop";
 import ScanPage from "./pages/ScanPage";
-import Dashboard from "./components/dashboard";
+
 import Home from "./pages/Home";
 
 import { useAuthActions } from "./hooks/useAuthActions"; // 👈 import custom hook
+import Dashb from "./components/Dashb";
+
 
 //
 function App() {
@@ -94,7 +96,7 @@ function App() {
           path="/dashboard"
           element={
             <ProtectedRoute user={user}>
-              <Dashboard user={user} handleLogout={handleLogout} />
+              <Dashb user={user} handleLogout={handleLogout} />
             </ProtectedRoute>
           }
         />
